@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import './NavigationBar.css';
+import './css/NavigationBar.css';
 
 class NavigationBar extends Component {
   render() {
