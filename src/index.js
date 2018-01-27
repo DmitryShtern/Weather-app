@@ -5,5 +5,5 @@ import App from './App';
 // import NavigationBar from './Components/NavigationBar';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<App isSearchPage = "true" />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();

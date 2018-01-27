@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
-import './App.css';
-import NavigationBar from './Components/NavigationBar';
+// import NavigationBar from './Components/NavigationBar';
 import Search from './Components/Search';
+import Favorites from './Components/Favorites';
+import Forecast from './Components/Forecast';
+import './App.css';
 
 class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			isSearchPage: true,
-			locations: []
+			location: "",
+			content: <Search />
 		};
-	}
+	};
 
-	
-
+	changeLocation = (evt) => {
+		this.setState({
+			location: evt.target.value
+		});
+	};
+  
 	render() {
 		return (
 			<div className="App">
-				<NavigationBar />
+				{/* <NavigationBar /> */}
 
-				<input className="SearchField" name="search_field" type="search" placeholder="Location name" list="location_names"/>
-					<div>
-						{/* <h1>this.state.title</h1>
-						<h1>this.state.type</h1>
-						<h1>this.state.woeid</h1> */}
-					</div>
-				<h1>{(this.state.isSearchPage) ? "true" : "false"}</h1>
+				<header>
+					<img src={"https://www.metaweather.com/static/img/weather/c.svg"} className="Logo" alt="MetaWeather API" />
+					<h1 className="Title">Welcome to MetaWeather API web-site</h1>
+					<button className="MenuButton">Search</button>
+					<button className="MenuButton">Favorites</button>
+					{/* onClick={this.toSearch()} */}
+				</header>
+
+				{this.state.content}
 			</div>
 		);
 	}

@@ -1,18 +1,12 @@
-.Search {
+/* .Search {
 	text-align: center;
 	color: white;
 }
 
 .TextField {
-	width: 160px;
-	padding: 5px 10px;
-	border: 1px solid #CCC;
-	border-radius: 5px;
 	color: black;
 	font-size: 20px;
 }
-
-/*  */
 
 .datagrid {
 	width: 80%;
@@ -35,9 +29,9 @@
 	padding: 10px 10px;
 }
 
-/* .datagrid table thead{
-	margin-bottom: 20px;
-} */
+.datagrid table thead tr th {
+	width: 60%;
+}
 
 .datagrid table thead th {
 	background-color:#f8f8f8;
@@ -54,4 +48,4 @@
 .datagrid table tbody td {
 	color: black;
 	border-bottom: 1px solid #FAFAFA;
-}
+} */

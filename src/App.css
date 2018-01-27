@@ -2,42 +2,36 @@
   text-align: center;
 }
 
-/* .Search {
-  text-align: center;
-  height: 100%; 150px
+header {
+  margin-bottom: 20px;
   padding: 20px;
-  color: white;
-} */
-
-.SearchField {
-  /* height: 100px; */
-  width: 260px;
-  font-size: 4em;
-  background-color: white;
-  margin: 20px 0px 20px 0px;
-}
-
-/* .App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
   background-color: #222;
-  height: 150px;
-  padding: 20px;
+  text-align: center;
   color: white;
 }
 
-.App-title {
+.Logo {
+  animation: Logo-spin infinite 20s linear;
+  height: 80px;
+  margin: 10px 0px 10px 0px;
+}
+
+.Title {
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
+.MenuButton {
+  background-color: white;
+  height: 30px;
+  width: 100px;
+  margin: 10px 30px 10px 30px;
+  color: black;
+  border: 1px solid black;
+  border-radius: 5px;
+  font-size: 0.9em;
 }
 
-@keyframes App-logo-spin {
+@keyframes Logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
-} */
+}
