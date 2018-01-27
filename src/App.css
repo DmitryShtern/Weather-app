@@ -20,6 +20,14 @@ header {
   font-size: 1.5em;
 }
 
+.Title a,
+.Title a:hover,
+.Title a:visited,
+.Title a:active {
+  color:inherit;
+  text-decoration: none;
+}
+
 .MenuButton {
   background-color: white;
   height: 30px;

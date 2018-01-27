@@ -1,4 +1,61 @@
 .Search {
-  text-align: center;
-  color: white;
+	text-align: center;
+	color: white;
+}
+
+.TextField {
+	width: 160px;
+	padding: 5px 10px;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	color: black;
+	font-size: 20px;
+}
+
+/*  */
+
+.Search-Row {
+	margin-bottom: 20px;
+}
+
+.Location-Grid, .Search-Row {
+	width: 80%;
+	margin-left: 10%;
+	margin-right: 10%;
+	background: #FFF;
+	overflow: hidden;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+}
+
+.Location-Grid table, .Search-Row table{
+	width: 100%;
+	border-collapse: collapse;
+	text-align: left;
+	font: normal normal normal 15px/150% Arial, Helvetica, sans-serif;
+}
+
+.Location-Grid table td, .Location-Grid table th, .Search-Row table td, .Search-Row table th {
+	padding: 10px 10px;
+}
+
+/* .datagrid table thead{
+	margin-bottom: 20px;
+} */
+
+.Location-Grid table thead th, .Search-Row table thead th {
+	background-color:#f8f8f8;
+	color: black;
+	font-size: 17px;
+	font-weight: bold;
+	border-bottom: 1px solid #CCC;
+}
+
+.Location-Grid table thead th:first-child {
+	width: 30%;
+}
+
+.Location-Grid table tbody td {
+	color: black;
+	border-bottom: 1px solid #FAFAFA;
 }

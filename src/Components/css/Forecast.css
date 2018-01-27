@@ -1,51 +1,57 @@
-/* .Search {
+.Forecast {
+	margin: 0px;
+	padding: 0px;
 	text-align: center;
-	color: white;
 }
 
-.TextField {
+dl {
+	margin: 0px;
+	padding: 0px;
+	text-align: center;	
 	color: black;
-	font-size: 20px;
 }
 
-.datagrid {
-	width: 80%;
-	margin-left: 10%;
-	margin-right: 10%;
-	background: #FFF;
-	overflow: hidden;
-	border: 1px solid #CCC;
-	border-radius: 5px;
+dd {
+	margin: 20px 0px;	
 }
 
-.datagrid table {
-	width: 100%;
-	border-collapse: collapse;
-	text-align: left;
-	font: normal normal normal 15px/150% Arial, Helvetica, sans-serif;
-}
-
-.datagrid table td, .datagrid table th {
-	padding: 10px 10px;
-}
-
-.datagrid table thead tr th {
-	width: 60%;
-}
-
-.datagrid table thead th {
-	background-color:#f8f8f8;
+.Forecast-Info {
+	margin: 10px 0px 10px 100px;
+	float: left;
+	overflow: auto;
 	color: black;
-	font-size: 17px;
-	font-weight: bold;
-	border-bottom: 1px solid #CCC;
 }
 
-.datagrid table thead th:first-child {
-	width: 30%;
+.Forecast-Title, .Parent-Title {
+	margin: 10px 0px;
 }
 
-.datagrid table tbody td {
+.Daily-Forecast {
+	margin: 30px;
+	display: inline-block;
 	color: black;
-	border-bottom: 1px solid #FAFAFA;
+}
+
+.Day {
+	margin: 0px;
+	padding: 0px;
+}
+
+/* .Weather-State {
+
+} */
+
+.Hidden {
+	display: none;
+}
+
+.Weather-State img {
+	width: 75px;
+	height: 75px;
+	float: center;
+}
+
+/* .Image-Wind-Arrow {
+	width: 30 + 'px';
+	height: 30 + 'px';
 } */
