@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import Client from './Client';
 import './css/Search.css';
+import Favorites from './Favorites';
+
+<Favorites ref="favorites"/>
 
 class Search extends Component {
 	state = {
-	  	locations: [],
-	  	searchValue: ""
+		locations: []
 	};
 
 	handleSearchChange = e => {
 		const value = e.target.value;
 	
-		this.setState({
-		  	searchValue: value
-		});
-	
 		if (value === "") {
 			this.setState({
 				locations: []
 			});
-		} else {	
+		} else {
 		  	Client.search("search/?query=" + value, locations => {
 				this.setState({
 					locations: locations.slice(0, 25)
@@ -47,27 +45,35 @@ class Search extends Component {
 				<td>{(location.latt_long).substr(
 					(location.latt_long).indexOf(",") + 1)}
 				</td>
-				<td>Add to favorites</td>
+				<td><button>Add to favorites</button></td>
+				{/* <Favorites addToFavorites={location.woeid}/> */}
 			</tr>
 		));
 
+		console.log("locationRows: " + (locationRows));
+
 		return (
 			<div className="Search">
-				<div className="datagrid">
+				<div className="Search-Row">
 					<table>
 						<thead>
 							<tr>
-								<th colSpan="6" className="Search">
+								<th className="Search">
 									<input
 										className="TextField"
 										type="text"
 										placeholder="Search location..."
-										value={this.state.searchValue}
 										onChange={this.handleSearchChange}
 									/>
 								</th>
 							</tr>
+						</thead>
+					</table>
+				</div>
 
+				<div className="Location-Grid">
+					<table>
+						<thead>
 							<tr>
 								<th>Location</th>
 								<th>Type</th>

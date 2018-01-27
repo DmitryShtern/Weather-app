@@ -14,7 +14,11 @@
 
 /*  */
 
-.datagrid {
+.Search-Row {
+	margin-bottom: 20px;
+}
+
+.Location-Grid, .Search-Row {
 	width: 80%;
 	margin-left: 10%;
 	margin-right: 10%;
@@ -24,14 +28,14 @@
 	border-radius: 5px;
 }
 
-.datagrid table {
+.Location-Grid table, .Search-Row table{
 	width: 100%;
 	border-collapse: collapse;
 	text-align: left;
 	font: normal normal normal 15px/150% Arial, Helvetica, sans-serif;
 }
 
-.datagrid table td, .datagrid table th {
+.Location-Grid table td, .Location-Grid table th, .Search-Row table td, .Search-Row table th {
 	padding: 10px 10px;
 }
 
@@ -39,7 +43,7 @@
 	margin-bottom: 20px;
 } */
 
-.datagrid table thead th {
+.Location-Grid table thead th, .Search-Row table thead th {
 	background-color:#f8f8f8;
 	color: black;
 	font-size: 17px;
@@ -47,11 +51,11 @@
 	border-bottom: 1px solid #CCC;
 }
 
-.datagrid table thead th:first-child {
+.Location-Grid table thead th:first-child {
 	width: 30%;
 }
 
-.datagrid table tbody td {
+.Location-Grid table tbody td {
 	color: black;
 	border-bottom: 1px solid #FAFAFA;
 }

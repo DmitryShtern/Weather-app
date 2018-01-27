@@ -14,20 +14,20 @@ class App extends Component {
 		};
 	};
 
-	changeLocation = (evt) => {
-		this.setState({
-			location: evt.target.value
-		});
-	};
-  
+	// changeLocation = (evt) => {
+	// 	this.setState({
+	// 		location: evt.target.value
+	// 	});
+	// };
+	
 	render() {
 		return (
 			<div className="App">
 				{/* <NavigationBar /> */}
 
 				<header>
-					<img src={"https://www.metaweather.com/static/img/weather/c.svg"} className="Logo" alt="MetaWeather API" />
-					<h1 className="Title">Welcome to MetaWeather API web-site</h1>
+					<a href="https://www.metaweather.com/"><img src={"https://www.metaweather.com/static/img/weather/c.svg"} className="Logo" alt="MetaWeather API" /></a>
+					<h1 className="Title"><a href="https://www.metaweather.com/">Welcome to MetaWeather API web-site</a></h1>
 					<button className="MenuButton">Search</button>
 					<button className="MenuButton">Favorites</button>
 					{/* onClick={this.toSearch()} */}

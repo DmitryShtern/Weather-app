@@ -5,51 +5,115 @@ import { isUndefined } from 'util';
 
 class Favorites extends Component {
 	state = {
-		locNames: ["London", "Moscow", "New York", "Kiev", "Cairo", "San Francisco", "Barcelona"],
+		favLocations: ["London", "Moscow", "New York", "Kiev", "Cairo", "San Francisco", "Barcelona"],
 		locations: [],
-		searchValue: ""
- 	};
-
-	componentDidMount() {
-		this.handleSearchChange();
 	};
 
+	componentDidMount() {
+		// var oldCachedFavorite = [{"title":"London","location_type":"City","woeid":44418,"latt_long":"51.506321,-0.12714"}];
+
+		// this.addToFavorites(oldCachedFavorite);
+
+		// this.handleSearchChange();
+	};
+
+	addToFavorites = (id, location) => {
+		// const cachedFavorites = localStorage.getItem("favorites");
+
+		// console.log("cachedFavorites: " + cachedFavorites);
+		console.log("id: " + id);
+		console.log("location: " + location);
+
+		// if (cachedFavorites) {
+		// 	cachedFavorites.concat(favorite);
+		// 	localStorage.setItem("favorites", cachedFavorites);
+
+		// 	console.log("!cachedFavorites was concats!\n\n" + JSON.stringify(cachedFavorites));		
+		// } else {
+		// 	localStorage.setItem("favorites", favorite);
+		// }
+		
+		localStorage.setItem(id, location);
+
+		console.log("localStorage.getItem(id): " + localStorage.getItem(id));
+	};
+
+	removeFavorite = favorite => {
+
+	}
 
 	handleSearchChange = e => {
 		const value = (isUndefined(e)) ? "" : e.target.value;
-	
+
 		this.setState({
-			searchValue: value,
-			locations: []
+			locations: [],
+			favLocations: []
 		});
 
+		var cachedFavorites = {
+			"title": "title",
+			"type": "type",
+			"woeid": "woeid",
+			"latt_long": "48.382881,31.173441"
+		}
+
+		cachedFavorites = localStorage.getItem("favorites");
+		console.log("cachedFavorites above the IF: " + cachedFavorites[0].title);
+
+		if (cachedFavorites) {
+			this.setState({
+				favLocations: cachedFavorites
+			});
+		}
+
 		// TO REWRITE WITH LOCAL STORAGE //
-	
-		if (value !== "") {
-			this.state.locNames.forEach(locName => {
-				if (~(locName.toUpperCase()).indexOf(value.toUpperCase())) {
-					Client.search("search/?query=" + locName, locations => {
-						this.setState({
-							locations: this.state.locations.concat(locations).slice(0, 25)
-						});
+		var newLocations = [];
 
-						console.log("state.locations: " + locName);
-						console.log("state.searchValue: " + this.state.searchValue);						
-					});
-				};
-			});
+		console.log("value: " + value);
+		
+		if (value === "") {
+			for (var i = 0; i < cachedFavorites.length; i++) {
+				newLocations.push(cachedFavorites[i]);
+
+				console.log("cachedFavorites[i].title: " + cachedFavorites[i].title);
+			};
 		} else {
-			this.state.locNames.forEach(locName => {
-				Client.search("search/?query=" + locName, locations => {
-					this.setState({
-						locations: this.state.locations.concat(locations).slice(0, 25)
-					});
+			for (var i = 0; i < cachedFavorites.length; i++) {
+				if (~(cachedFavorites[i].title.toUpperCase()).indexOf(value.toUpperCase())) {
+					newLocations.push(cachedFavorites[i]);
 
-					console.log("state.locations: " + locName);
-					console.log("state.searchValue: " + this.state.searchValue);						
-				});
-			});
-		};
+					console.log("cachedFavorites[i].title: " + cachedFavorites[i].title);
+				}
+			};
+		}
+
+		this.setState({
+			locations: newLocations.slice(0, 25)
+		});
+
+		// this.state.favLocations.forEach(favLocation => {
+		// 	if (~(favLocation.toUpperCase()).indexOf(value.toUpperCase())) {
+		// 		Client.search("search/?query=" + favLocation, locations => {
+		// 			this.setState({
+		// 				locations: this.state.locations.concat(locations).slice(0, 25)
+		// 			});
+
+		// 			console.log("state.favLocation: " + favLocation);					
+		// 		});
+		// 	};
+		// });
+
+		// } else {
+		// 	this.state.favLocations.forEach(favLocation => {
+		// 		Client.search("search/?query=" + favLocation, locations => {
+		// 			this.setState({
+		// 				locations: this.state.locations.concat(locations).slice(0, 25)
+		// 			});
+
+		// 			console.log("state.favLocation: " + favLocation);						
+		// 		});
+		// 	});
+		// };
 
 		// UP TO HERE //
 	};
@@ -60,14 +124,15 @@ class Favorites extends Component {
 
 	render() {
 		const locations = this.state.locations;
-	
+
 		const locationRows = locations.map((location, idx) => (
-			
-			<tr key = {idx}>
-			{/* <tr key = {idx} onClick = {() => this.props.onLocationClick(location)}> */}
+			// <tr key = {idx} onClick = {() => this.props.onLocationClick(location)}>			
+			<tr key={idx}>
 				<td>{location.title}</td>
 				<td>{location.location_type}</td>
 				<td>{location.woeid}</td>
+
+				{console.log("location.title: " + location.title)}
 
 				{/* Latitude & Longitude calculating (from location.latt_long string) */}
 
@@ -77,29 +142,32 @@ class Favorites extends Component {
 				<td>{(location.latt_long).substr(
 					(location.latt_long).indexOf(",") + 1)}
 				</td>
-				<td><button>Add to favorites</button></td>
+				<td><button>Remove from favorites</button></td>
 			</tr>
 		));
 
+		console.log("locationRows: " + (locationRows));
+
 		return (
 			<div className="Search">
-				<div className="datagrid">
+				<div className="Search-Row">
 					<table>
 						<thead>
 							<tr>
-								<th colSpan="6" className="Search">
+								<th className="Search">
 									<input
 										className="TextField"
 										type="text"
 										placeholder="Search location..."
-										value={this.state.searchValue}
 										onChange={this.handleSearchChange}
 									/>
 								</th>
 							</tr>
 						</thead>
 					</table>
+				</div>
 
+				<div className="Location-Grid">
 					<table>
 						<thead>
 							<tr>
@@ -136,7 +204,7 @@ export default Favorites;
 //       <td>{location.title}</td>
 //       <td className = "right aligned">{location.location_type}</td>
 //       <td className = "right aligned">{location.woeid}</td>
-      
+
 //       {/* Latitude & Longitude calculating (from location.latt_long string) */}
 
 //       <td className = "right aligned">{

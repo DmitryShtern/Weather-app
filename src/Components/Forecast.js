@@ -2,73 +2,103 @@ import React, { Component } from 'react';
 import Client from './Client';
 import './css/Forecast.css';
 
+import forecastJSON from '../forecast.json';
+
 class Forecast extends Component {
-	state = {
-		woeid: "",
-		forecast: []
- 	};
+	constructor() {
+		super();
+		this.state = {
+			forecast: forecastJSON,
+			woeid: "922137"
+		};
+	};
 
-	handleSearchChange = e => {
-		// const id = e.target.value;
-	
-		// this.setState({
-		// 	searchValue: value
-		// });
-	
-		// if (value === "") {
-		// 	this.setState({
-		// 		forecast: []
-		// 	});
-		// } else {
-			// this.state.locNames.forEach(locName => {
-			// 	if (~locName.indexOf(value)) {
-					
-			// 	};
-			// });
-		// }
+	componentDidMount = woeid => {
+		if (woeid === "") return 0;
 
-		Client.search(this.state.woeid, forecast => {	// SWAP this.state.woeid TO LOCAL id
+		this.setState({
+			woeid: woeid
+		});
+	};
+
+	handleForecastRequest() {
+		const id = this.state.woeid;
+
+		Client.search(id + "/", cast => {
 			this.setState({
-				forecast: forecast.slice(0, 25)
+				forecast: cast
 			});
 		});
 	};
 
 	render() {
 		const forecast = this.state.forecast;
-	
-		const locationRows = forecast.map((dailyForecast, idx) => (
-			<tr key = {idx}>
-				<td>Title</td>
-				<td>Today</td>
-				<td>Tommorow</td>
-				<td>+2</td>
-				<td>+3</td>
-				<td>+4</td>
-				<td>+5</td>
-			</tr>
-		));
+
+		console.log("forecast.consolidated_weather: " + JSON.stringify(forecast.consolidated_weather));
+
+		const forecastInfo = (
+			<div className="Forecast-Info">
+				<h1 className="Forecast-Title">{forecast.title}</h1>
+				<h3 className="Parent-Title">{forecast.parent.title}</h3>
+
+				<dl>
+					<dt>Time: {forecast.time.substr(10, 5)}</dt>
+					<dt>Sunrise: {forecast.sun_rise.substr(10, 5)}</dt>
+					<dt>Senset: {forecast.sun_set.substr(10, 5)}</dt>
+				</dl>
+			</div>
+		);
+
+		// MB THIS (const forecastList) SHOULD BE OUT OF render()? //
+
+		const forecastList = forecast.consolidated_weather.map((dailyForecast, idx) => (
+			<div className="Daily-Forecast" key={idx}>
+				<h3 className="Day">{
+					dailyForecast.applicable_date.slice(-2)
+					+ "." +
+					dailyForecast.applicable_date.slice(-5, -3)}
+				</h3>
+
+		 		<dl>
+		 			<dt className="Hidden">Weather</dt>
+		 			<dd>{dailyForecast.weather_state_name}</dd>					
+		 			<dd className="Weather-State">
+		 				<img
+							className="Image-Daily-Forecast"
+							src={"https://www.metaweather.com/static/img/weather/" + dailyForecast.weather_state_abbr + ".svg"}
+							alt={"Weather: " + dailyForecast.weather_state_name}
+						/>
+					</dd>
+
+					<dt className="Hidden">Temperature</dt>
+					<dd>Min: {~~dailyForecast.min_temp} C°<br />Max: {~~dailyForecast.max_temp} C°</dd>
+
+					<dt><b>Wind:</b> {dailyForecast.wind_direction_compass}</dt>
+					<dd>
+						{/* <img
+							// style={{
+							// 	transform: rotate + "(" + ~~dailyForecast.wind_direction + 'deg)'
+							// }}
+							className="Image-Wind-Arrow"
+							src={"https://www.metaweather.com/static/img/windarrow.svg" + dailyForecast.weather_state_abbr + ".svg"}
+							alt={"Wind: " + dailyForecast.wind_direction_compass}
+						/> */}
+						{~~dailyForecast.wind_speed}mph
+					</dd>
+
+					<dd><b>Humidity:</b> {dailyForecast.humidity}%</dd>
+
+					<dd><b>Pressure:</b> {~~dailyForecast.air_pressure}mb</dd>
+
+					<dd><b>Confidence:</b> {dailyForecast.predictability}%</dd>
+				</dl>
+			</div>
+		));	
 
 		return (
 			<div className="Forecast">
-				<div className="datagrid">
-					<table>
-						<thead>
-							<tr>
-								<th>1</th>
-								<th>2</th>
-								<th>3</th>
-								<th>4</th>
-								<th>5</th>
-								<th>6</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							{locationRows}
-						</tbody>
-					</table>
-				</div>
+				{forecastInfo}
+				{forecastList}
 			</div>
 		);
 	}
