@@ -55,8 +55,6 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{/* <NavigationBar /> */}
-
 				<header>
 					<div className="Header-Panel">
 						<a href="https://www.metaweather.com/">
