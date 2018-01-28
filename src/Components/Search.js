@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import Client from './Client';
 import './css/Search.css';
-import Favorites from './Favorites';
-
-<Favorites ref="favorites"/>
 
 class Search extends Component {
 	state = {
@@ -26,12 +23,22 @@ class Search extends Component {
 		}
 	};
 
+	addToFavorites = (title, location) => {
+
+		console.log("title: " + title);
+		console.log("location: " + (location));
+		
+		localStorage.setItem(title, location); //JSON.stringify(location));
+
+		console.log("Object.values(localStorage): " + Object.values(localStorage));
+	};
+
 	render() {
 		const locations = this.state.locations;
 	
 		const locationRows = locations.map((location, idx) => (
 			// <tr key = {idx} onClick = {() => this.props.onLocationClick(location)}>
-			<tr key = {idx}>
+			<tr key = {idx} onClick = {() => {}}>
 				<td>{location.title}</td>
 				<td>{location.location_type}</td>
 				<td>{location.woeid}</td>
@@ -45,12 +52,11 @@ class Search extends Component {
 				<td>{(location.latt_long).substr(
 					(location.latt_long).indexOf(",") + 1)}
 				</td>
-				<td><button>Add to favorites</button></td>
-				{/* <Favorites addToFavorites={location.woeid}/> */}
+				<td><button className="To-Favorites" onClick={() => {this.addToFavorites(location.title, JSON.stringify(location))}}>Add to favorites</button></td>
 			</tr>
 		));
 
-		console.log("locationRows: " + (locationRows));
+		// console.log("locationRows: " + (locationRows));
 
 		return (
 			<div className="Search">
@@ -91,7 +97,7 @@ class Search extends Component {
 				</div>
 			</div>
 		);
-	}
-}
+	};
+};
 
 export default Search;

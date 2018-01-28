@@ -12,7 +12,27 @@
 	font-size: 20px;
 }
 
-/*  */
+.To-Favorites {
+	width: 130px;
+	border: 1px solid #d1d1d1;
+  	border-radius: 4px;
+	font-size: 0.9em;
+  
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.To-Favorites:hover {
+  background-color: white;
+  color: gold;
+  border: 1px solid gold;
+}
+
+.To-Favorites:active {
+  background-color: #d1d1d1;
+  color: white;
+  border: 1px solid white;
+}
 
 .Search-Row {
 	margin-bottom: 20px;

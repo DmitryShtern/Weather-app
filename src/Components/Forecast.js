@@ -101,7 +101,7 @@ class Forecast extends Component {
 				{forecastList}
 			</div>
 		);
-	}
-}
+	};
+};
 
 export default Forecast;

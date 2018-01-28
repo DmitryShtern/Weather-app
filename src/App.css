@@ -22,21 +22,42 @@ header {
 
 .Title a,
 .Title a:hover,
-.Title a:visited,
-.Title a:active {
+.Title a:active,
+.Title a:visited {
   color:inherit;
   text-decoration: none;
 }
 
-.MenuButton {
+.Menu-Button {
   background-color: white;
   height: 30px;
   width: 100px;
   margin: 10px 30px 10px 30px;
-  color: black;
-  border: 1px solid black;
+  color: #222;
+  border: 1px solid white;
   border-radius: 5px;
   font-size: 0.9em;
+
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+}
+
+.Menu-Button:hover {
+  background-color: #222;
+  color: white;
+  border: 2px solid white;
+}
+
+.Menu-Button:active {
+  background-color: #555;
+  color: white;
+  border: 2px solid white;
+}
+
+.Menu-Button:visited {
+  background-color: #999;
+  color: white;
+  border: 2px solid white;
 }
 
 @keyframes Logo-spin {
