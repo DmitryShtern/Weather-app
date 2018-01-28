@@ -12,9 +12,15 @@ class App extends Component {
 		this.state = {
 			content: <Search />
 		};
+
+		this.toForecast.bind(this);
 	};
 
-	componentDidMount() {
+	toForecast() {
+		this.changeContent("forecast");
+	}
+
+	componentWillMount() {
 		let to = sessionStorage.getItem("content");
 
 		to = (to !== null) ? to : "search";
@@ -35,19 +41,15 @@ class App extends Component {
 		sessionStorage.setItem("content", to);
 
 		switch (to) {
-			case "search": this.setState({content: <Search />});
+			case "search": this.setState({content: <Search chooseLocation={this.changeContent}/>});
 				break;
-			case "favorites": this.setState({content: <Favorites />});
+			case "favorites": this.setState({content: <Favorites chooseLocation={this.changeContent}/>});
 				break;
 			case "forecast": this.setState({content: <Forecast />});
 				break;
 			default: this.setState({content: <NotFound />});
 				break;
 		}
-	};
-
-	toForecast() {
-
 	};
 	
 	render() {
@@ -56,17 +58,18 @@ class App extends Component {
 				{/* <NavigationBar /> */}
 
 				<header>
-					<a href="https://www.metaweather.com/">
-						<img src={"https://www.metaweather.com/static/img/weather/c.svg"} className="Logo" alt="MetaWeather API" />
-					</a>
+					<div className="Header-Panel">
+						<a href="https://www.metaweather.com/">
+							<img src={"https://www.metaweather.com/static/img/weather/c.svg"} className="Logo" alt="MetaWeather API" />
+						</a>
 
-					<h1 className="Title">
-						<a href="https://www.metaweather.com/">Welcome to MetaWeather API web-site</a>
-					</h1>
+						<h1 className="Title">
+							<a href="https://www.metaweather.com/">Welcome to MetaWeather API web-site</a>
+						</h1>
 
-					<button className="Menu-Button" onClick={() => {this.changeContent("search")}}>Search</button>
-					<button className="Menu-Button" onClick={() => {this.changeContent("favorites")}}>Favorites</button>
-					{/* onClick={this.toSearch()} */}
+						<button className="Menu-Button" onClick={() => {this.changeContent("search")}}>Search</button>
+						<button className="Menu-Button" onClick={() => {this.changeContent("favorites")}}>Favorites</button>
+					</div>
 				</header>
 
 				{this.state.content}

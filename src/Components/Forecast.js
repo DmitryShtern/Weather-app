@@ -9,16 +9,12 @@ class Forecast extends Component {
 		super();
 		this.state = {
 			forecast: forecastJSON,
-			woeid: "922137"
+			woeid: sessionStorage.getItem("woeid")
 		};
 	};
 
-	componentDidMount = woeid => {
-		if (woeid === "") return 0;
-
-		this.setState({
-			woeid: woeid
-		});
+	componentWillMount() {
+		this.handleForecastRequest();
 	};
 
 	handleForecastRequest() {
@@ -31,9 +27,25 @@ class Forecast extends Component {
 		});
 	};
 
+	addToFavorites = (title, forecast) => {
+		let location = (
+			'{"title":"' + forecast.title +
+			'","location_type":"' + forecast.location_type +
+			'","woeid":' + forecast.woeid +
+			',"latt_long":"' + forecast.latt_long + '"}'
+		);
+		
+		localStorage.setItem(title, location); //JSON.stringify(location));
+		
+		console.log("addToFavorites(" + title + ", forecast)");
+		console.log("location: " + location);
+		console.log("location: " + JSON.stringify(location));
+	};
+
 	render() {
 		const forecast = this.state.forecast;
 
+		console.log("forecast.title: " + JSON.stringify(forecast.title));
 		console.log("forecast.consolidated_weather: " + JSON.stringify(forecast.consolidated_weather));
 
 		const forecastInfo = (
@@ -42,10 +54,18 @@ class Forecast extends Component {
 				<h3 className="Parent-Title">{forecast.parent.title}</h3>
 
 				<dl>
-					<dt>Time: {forecast.time.substr(10, 5)}</dt>
-					<dt>Sunrise: {forecast.sun_rise.substr(10, 5)}</dt>
-					<dt>Senset: {forecast.sun_set.substr(10, 5)}</dt>
+					<dt>Time: {forecast.time.substr(11, 5)}</dt>
+					<dt>Sunrise: {forecast.sun_rise.substr(11, 5)}</dt>
+					<dt>Senset: {forecast.sun_set.substr(11, 5)}</dt>
 				</dl>
+				
+				<button
+						className="To-Favorites-Info"
+						onClick={() => {
+							this.addToFavorites(forecast.title, forecast)
+						}}>
+						Add to favorites
+				</button>
 			</div>
 		);
 
@@ -93,7 +113,9 @@ class Forecast extends Component {
 					<dd><b>Confidence:</b> {dailyForecast.predictability}%</dd>
 				</dl>
 			</div>
-		));	
+		));
+
+		sessionStorage.setItem("weather-abbr", forecast.consolidated_weather[0].weather_state_abbr);
 
 		return (
 			<div className="Forecast">

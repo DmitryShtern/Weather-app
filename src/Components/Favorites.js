@@ -7,92 +7,110 @@ class Favorites extends Component {
 		super();
 		this.state = {
 			locations: Object.values(localStorage),
-
-			favorites: Object.values(localStorage)
+			search: ""
 		};
 	};
 
-	componentDidMount() {
-		// this.handleSearchChange();
+	// componentDidMount() {
+	// 	// this.handleSearchChange();
 
-		// test settings up local storage
+	// 	// test settings up local storage
 
-		{/*
-		console.log("123");
+	// 	{/*
+	// 	console.log("123");
 
-		Object.values(localStorage).forEach(value => {
-			console.log("JSON.parse(value)).title: \n" + (value).title); // JSON.parse(value).title);
-		});
+	// 	Object.values(localStorage).forEach(value => {
+	// 		console.log("JSON.parse(value)).title: \n" + (value).title); // JSON.parse(value).title);
+	// 	});
 
-		Object.values(localStorage).map(value => {
-			console.log("JSON.parse(value)).title: \n" + (value).title); // JSON.parse(value).title);
-		});
+	// 	Object.values(localStorage).map(value => {
+	// 		console.log("JSON.parse(value)).title: \n" + (value).title); // JSON.parse(value).title);
+	// 	});
 
-		console.log("Object.values(localStorage): \n" + JSON.stringify(Object.values(localStorage))); // Object.values(localStorage));
-		console.log("this.state.locations: \n" + (this.state.locations));
-		*/}
-	};
-
-	removeFavorite = favorite => {
-		//
-	};
+	// 	console.log("Object.values(localStorage): \n" + JSON.stringify(Object.values(localStorage))); // Object.values(localStorage));
+	// 	console.log("this.state.locations: \n" + (this.state.locations));
+	// 	*/}
+	// };
 
 	handleSearchChange = e => {
-		const value = (isUndefined(e)) ? "" : e.target.value;
+		const value = (isUndefined(e)) ? this.state.search : e.target.value;
 
 		this.setState({
-			locations: []
+			locations: Object.values(localStorage),
+			search: value
 		});
 
 		console.log("value: " + value);
 
-		if (value === "") {
-			this.setState({
-				locations: this.state.favorites
-			});
-		} else {
+		if (value !== "") {
 			let newLocations = [];
 
-			this.state.favorites.forEach(favorite => {
+			Object.values(localStorage).forEach(favorite => {
 				let title = JSON.parse(favorite).title.toLowerCase();
 
 				if (~title.indexOf(value.toLowerCase())) {	// substring searching
-
-				console.log("1) favorite.title: " + JSON.parse(favorite).title);
 				newLocations.push(favorite);					
 				}
-
-				console.log("2) favorite.title: " + JSON.parse(favorite).title);
 			});
 
 			this.setState({
 				locations: newLocations
 			});
 		};
-		
-		// if (value === "") {
-		// 	for (let i = 0; i < cachedFavorites.length; i++) {
-		// 		newLocations.push(cachedFavorites[i]);
-
-		// 		console.log("cachedFavorites[i].title: " + cachedFavorites[i].title);
-		// 	};
-		// } else {
-		// 	for (let i = 0; i < cachedFavorites.length; i++) {
-		// 		if (~(cachedFavorites[i].title.toUpperCase()).indexOf(value.toUpperCase())) {
-		// 			newLocations.push(cachedFavorites[i]);
-
-		// 			console.log("cachedFavorites[i].title: " + cachedFavorites[i].title);
-		// 		}
-		// 	};
-		// }
-
-		// this.setState({
-		// 	locations: newLocations.slice(0, 25)
-		// });
 	};
 
-	onLocationClick = location => {
-		return 0;
+	clickLocation = id => {
+		sessionStorage.setItem("woeid", id);
+
+		this.props.chooseLocation("forecast");
+	};
+	
+	removeFavorite = title => {
+		localStorage.removeItem(title);
+
+		console.log("removeFavorite() ->");
+
+		this.handleSearchChange();
+	};
+
+	locRowsMap() {
+		const locRows = (this.state.locations).map((location, idx) => (
+			<tr key={idx}>
+				<td onClick = {() => {(this.clickLocation(JSON.parse(location).woeid))}}>
+					<a className="Location-Title">{JSON.parse(location).title}</a>
+				</td>
+
+				<td>{JSON.parse(location).location_type}</td>
+				<td>{JSON.parse(location).woeid}</td>
+
+				{/* LATITUDE & LONGITUDE calculating (from location.latt_long string) */}
+
+				{console.log("JSON.parse(location).title: " + JSON.parse(location).title)}
+				{console.log("JSON.parse(location).location_type: " + JSON.parse(location).location_type)}
+				{console.log("JSON.parse(location).woeid: " + JSON.parse(location).woeid)}
+				{console.log("JSON.parse(location).latt_long: " + JSON.parse(location).latt_long)}
+				{console.log("idx: " + idx)}
+				
+
+				<td>{(JSON.parse(location).latt_long).substr(0, (JSON.parse(location).latt_long).length - (JSON.parse(location).latt_long).substr(
+					(JSON.parse(location).latt_long).indexOf(",")).length)}
+				</td>
+				<td>{(JSON.parse(location).latt_long).substr(
+					(JSON.parse(location).latt_long).indexOf(",") + 1)}
+				</td>
+				<td>
+					<button
+						className="From-Favorites"
+						onClick={() => {
+							this.removeFavorite(JSON.parse(location).title);
+						}}>
+						Remove from favorites
+					</button>
+				</td>
+			</tr>
+		));
+
+		return locRows;
 	};
 
 	render() {
@@ -111,36 +129,13 @@ class Favorites extends Component {
 
 
 
-		// Бл$дский АПИ не даёт распарсить весь локал сторейдж, так как latt_long содержит запятую (12.345678,-9.012345)
-		// Так что паршу каждое значение при использовании
-		// Да это жестко
+			// АПИ не даёт распарсить весь локал сторейдж, так как latt_long содержит запятую (12.345678,-9.012345)
+			// Так что паршу каждое значение при использовании
+			// Да это жестко
 
-		const locationRows = (this.state.locations).map((value, idx) => (
-			// <tr key = {idx} onClick = {() => this.props.onLocationClick(location)}>
+		const locationRows = this.locRowsMap();
 
-			<tr key={idx}>
-				<td>{JSON.parse(value).title}</td>
-				<td>{JSON.parse(value).location_type}</td>
-				<td>{JSON.parse(value).woeid}</td>
-
-				{/* Latitude & Longitude calculating (from location.latt_long string) */}
-
-				{/*
-				{console.log("JSON.parse(value).title: " + JSON.parse(value).title)}
-				{console.log("JSON.parse(value).location_type: " + JSON.parse(value).location_type)}
-				{console.log("JSON.parse(value).woeid: " + JSON.parse(value).woeid)}
-				{console.log("JSON.parse(value).latt_long: " + JSON.parse(value).latt_long)}
-				*/}
-
-				<td>{(JSON.parse(value).latt_long).substr(0, (JSON.parse(value).latt_long).length - (JSON.parse(value).latt_long).substr(
-					(JSON.parse(value).latt_long).indexOf(",")).length)}
-				</td>
-				<td>{(JSON.parse(value).latt_long).substr(
-					(JSON.parse(value).latt_long).indexOf(",") + 1)}
-				</td>
-				<td><button className="From-Favorites">Remove from favorites</button></td>
-			</tr>
-		));
+		sessionStorage.setItem("weather-abbr", "none");
 
 		return (
 			<div className="Search">
@@ -165,7 +160,7 @@ class Favorites extends Component {
 					<table>
 						<thead>
 							<tr>
-								<th>Location</th>
+								<th>Location (clickable)</th>
 								<th>Type</th>
 								<th>Woeid</th>
 								<th>Latitude</th>

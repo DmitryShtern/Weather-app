@@ -60,6 +60,16 @@
 	border-bottom: 1px solid #FAFAFA;
 }
 
+.Location-Title {
+	color: black;
+	text-decoration: none;
+}
+
+.Location-Title:hover {
+	color: gold;
+	text-decoration: none;
+}
+
 .From-Favorites {
 	width: 180px;
 	border: 1px solid #d1d1d1;

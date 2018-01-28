@@ -16,7 +16,11 @@ dd {
 }
 
 .Forecast-Info {
-	margin: 10px 0px 10px 100px;
+	margin: 10px;
+	/* top: 0px; */
+	left: 30px;
+	width: 200px;
+	position: relative;
 	float: left;
 	overflow: auto;
 	color: black;
@@ -26,8 +30,31 @@ dd {
 	margin: 10px 0px;
 }
 
+.To-Favorites-Info {
+	margin: 10px;
+	width: 130px;
+	border: 1px solid #d1d1d1;
+  	border-radius: 4px;
+	font-size: 0.9em;
+  
+	-webkit-transition-duration: 0.3s;
+	transition-duration: 0.3s;
+}
+
+.To-Favorites-Info:hover {
+  background-color: white;
+  color: gold;
+  border: 1px solid gold;
+}
+
+.To-Favorites-Info:active {
+  background-color: #d1d1d1;
+  color: white;
+  border: 1px solid white;
+}
+
 .Daily-Forecast {
-	margin: 30px;
+	margin: 30px 25px;
 	display: inline-block;
 	color: black;
 }

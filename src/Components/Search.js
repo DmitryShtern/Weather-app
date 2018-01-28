@@ -29,34 +29,47 @@ class Search extends Component {
 		console.log("location: " + (location));
 		
 		localStorage.setItem(title, location); //JSON.stringify(location));
+	};
 
-		console.log("Object.values(localStorage): " + Object.values(localStorage));
+	clickLocation = id => {
+		sessionStorage.setItem("woeid", id);
+
+		this.props.chooseLocation("forecast");
 	};
 
 	render() {
 		const locations = this.state.locations;
 	
 		const locationRows = locations.map((location, idx) => (
-			// <tr key = {idx} onClick = {() => this.props.onLocationClick(location)}>
-			<tr key = {idx} onClick = {() => {}}>
-				<td>{location.title}</td>
+			<tr key = {idx}>
+				<td onClick = {() => {(this.clickLocation(location.woeid))}}>
+					<a className="Location-Title">{location.title}</a>
+				</td>
+				
 				<td>{location.location_type}</td>
 				<td>{location.woeid}</td>
 
 				{/* Latitude & Longitude calculating (from location.latt_long string) */}
 
-				<td>{
-					(location.latt_long).substr(0, (location.latt_long).length - (location.latt_long).substr(
-					(location.latt_long).indexOf(",")).length)
-				}</td>
+				<td>{(location.latt_long).substr(0, (location.latt_long).length - (location.latt_long).substr(
+					(location.latt_long).indexOf(",")).length)}
+				</td>
 				<td>{(location.latt_long).substr(
 					(location.latt_long).indexOf(",") + 1)}
 				</td>
-				<td><button className="To-Favorites" onClick={() => {this.addToFavorites(location.title, JSON.stringify(location))}}>Add to favorites</button></td>
+				<td>
+					<button
+						className="To-Favorites"
+						onClick={() => {
+							this.addToFavorites(location.title, JSON.stringify(location))
+						}}>
+						Add to favorites
+					</button>
+				</td>
 			</tr>
 		));
-
-		// console.log("locationRows: " + (locationRows));
+		
+		sessionStorage.setItem("weather-abbr", "none");
 
 		return (
 			<div className="Search">
@@ -81,7 +94,7 @@ class Search extends Component {
 					<table>
 						<thead>
 							<tr>
-								<th>Location</th>
+								<th>Location (clickable)</th>
 								<th>Type</th>
 								<th>Woeid</th>
 								<th>Latitude</th>

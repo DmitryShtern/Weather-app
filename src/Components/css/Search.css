@@ -12,6 +12,16 @@
 	font-size: 20px;
 }
 
+.Location-Title {
+	color: black;
+	text-decoration: none;
+}
+
+.Location-Title:hover {
+	color: gold;
+	text-decoration: none;
+}
+
 .To-Favorites {
 	width: 130px;
 	border: 1px solid #d1d1d1;
@@ -59,9 +69,11 @@
 	padding: 10px 10px;
 }
 
-/* .datagrid table thead{
+/*
+.datagrid table thead {
 	margin-bottom: 20px;
-} */
+}
+*/
 
 .Location-Grid table thead th, .Search-Row table thead th {
 	background-color:#f8f8f8;
