@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Client from './Client';
 import './css/Forecast.css';
 
-import forecastJSON from '../forecast.json';
+import forecastJSON from './forecast.json';
 
 class Forecast extends Component {
 	constructor() {
@@ -45,8 +45,8 @@ class Forecast extends Component {
 	render() {
 		const forecast = this.state.forecast;
 
-		console.log("forecast.title: " + JSON.stringify(forecast.title));
-		console.log("forecast.consolidated_weather: " + JSON.stringify(forecast.consolidated_weather));
+		// console.log("forecast.title: " + JSON.stringify(forecast.title));
+		// console.log("forecast.consolidated_weather: " + JSON.stringify(forecast.consolidated_weather));
 
 		const forecastInfo = (
 			<div className="Forecast-Info">
@@ -69,14 +69,24 @@ class Forecast extends Component {
 			</div>
 		);
 
+		//
+		const weekDays = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+		const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		//
+
 		// MB THIS (const forecastList) SHOULD BE OUT OF render()? //
 
 		const forecastList = forecast.consolidated_weather.map((dailyForecast, idx) => (
 			<div className="Daily-Forecast" key={idx}>
 				<h3 className="Day">{
-					dailyForecast.applicable_date.slice(-2)
-					+ "." +
-					dailyForecast.applicable_date.slice(-5, -3)}
+					weekDays[new Date(dailyForecast.applicable_date).getDay()]
+					+ " – " +
+					new Date(dailyForecast.applicable_date).getDate()
+					// dailyForecast.applicable_date.slice(-2)
+					+ " " +
+					months[new Date(dailyForecast.applicable_date).getMonth()]
+					// dailyForecast.applicable_date.slice(-5, -3)
+					}
 				</h3>
 
 		 		<dl>
