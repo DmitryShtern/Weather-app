@@ -15,6 +15,8 @@ class Search extends Component {
 				locations: []
 			});
 		} else {
+				// TODO: you can continue promise chain right here without need to pass
+				// TODO: callback to Client component
 		  	Client.search("search/?query=" + value, locations => {
 				this.setState({
 					locations: locations.slice(0, 25)
@@ -24,7 +26,7 @@ class Search extends Component {
 	};
 
 	addToFavorites = (title, location) => {
-
+		// TODO: remove console.logs after debugging
 		console.log("title: " + title);
 		console.log("location: " + (location));
 		
@@ -45,7 +47,7 @@ class Search extends Component {
 				<td onClick = {() => {(this.clickLocation(location.woeid))}}>
 					<a className="Location-Title">{location.title}</a>
 				</td>
-				
+				{/* TODO: map data gained from network to use consistent camelCase names */}
 				<td>{location.location_type}</td>
 				<td>{location.woeid}</td>
 

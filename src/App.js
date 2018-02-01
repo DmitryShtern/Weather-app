@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
+// TODO: remove unneeded commented code
 // import NavigationBar from './Components/NavigationBar';
+// TODO: name folders in lowercase
+// TODO: use module pattern (with index.js) for organizing your folders and 
+// TODO: import components like import { Search } from './components'
 import Search from './Components/Search';
 import Favorites from './Components/Favorites';
 import Forecast from './Components/Forecast';
 import NotFound from './Components/NotFound';
 import './App.css';
 
+// TODO: use 2 spaces instead tabs for indentation
 class App extends Component {
 	constructor() {
 		super();
@@ -25,7 +30,7 @@ class App extends Component {
 
 		to = (to !== null) ? to : "search";
 		this.changeContent(to);
-
+		// TODO: remove unneeded commented code
 		//	^	IF 'content' in sessionStorage === null
 		//	^	this.state.content = <Search />
 
@@ -38,6 +43,8 @@ class App extends Component {
 	};
 
 	changeContent = to => {
+		// TODO: use libs like react-router for navigation between pages & saving 
+		// TODO: current route after refreshing
 		sessionStorage.setItem("content", to);
 
 		switch (to) {
