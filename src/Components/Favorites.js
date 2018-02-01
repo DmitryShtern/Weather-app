@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { isUndefined } from 'util';
 import './css/Favorites.css';
-
+// TODO: Favorites and Search components are very similar you could reuse some
+// TODO: parts as components or functions from one in another
 class Favorites extends Component {
 	constructor() {
 		super();

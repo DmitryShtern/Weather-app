@@ -1,3 +1,4 @@
+// TODO: it's not a component; what does it do in components folder
 /* eslint-disable no-undef */
 function search(query, cb) {
 	return fetch(`api/location/${query}`, {
@@ -17,6 +18,7 @@ function checkStatus(response) {
 	error.status = response.statusText;
 	error.response = response;
 	console.log(error); // eslint-disable-line no-console
+	// TODO: you throw error bu don't handle it down the promise chain
 	throw error;
 }
 

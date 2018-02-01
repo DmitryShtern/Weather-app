@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Client from './Client';
 import './css/Forecast.css';
 
+// TODO: why do you need this?
 import forecastJSON from './forecast.json';
 
 class Forecast extends Component {
@@ -19,7 +20,7 @@ class Forecast extends Component {
 
 	handleForecastRequest() {
 		const id = this.state.woeid;
-
+		// TODO: use different functions/methods for different tasks/requests
 		Client.search(id + "/", cast => {
 			this.setState({
 				forecast: cast
@@ -28,6 +29,7 @@ class Forecast extends Component {
 	};
 
 	addToFavorites = (title, forecast) => {
+		// TODO: why not to use JSON.stringify?
 		let location = (
 			'{"title":"' + forecast.title +
 			'","location_type":"' + forecast.location_type +

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './css/NotFound.css';
 
 class NotFound extends Component {
+	// TODO: unneeded constructor
 	constructor() {
 		super();
 		this.state = {};

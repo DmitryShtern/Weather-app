@@ -20,6 +20,7 @@
 
 .Location-Grid, .Search-Row {
 	width: 80%;
+	/* TODO: you can use shortcut margin: 0 10%; */
 	margin-left: 10%;
 	margin-right: 10%;
 	background: #FFF;
@@ -32,10 +33,12 @@
 	width: 100%;
 	border-collapse: collapse;
 	text-align: left;
+	/* TODO: comment such implicit css rules */
 	font: normal normal normal 15px/150% Arial, Helvetica, sans-serif;
 }
 
 .Location-Grid table td, .Location-Grid table th, .Search-Row table td, .Search-Row table th {
+	/* TODO: you can use shortcut padding: 10px; */
 	padding: 10px 10px;
 }
 

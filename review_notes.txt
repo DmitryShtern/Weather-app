@@ -1,0 +1,5 @@
+Review comments in files marked with TODO word.
+Nit whole code is checked and covered with comments, so let's discuss some
+mistakes personally later.
+Don't commit .DS_Store files and build directory.
+Store css files alongside with corresponding components.
